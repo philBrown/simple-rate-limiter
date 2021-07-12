@@ -16,7 +16,7 @@ namespace RateLimiter.UnitTest
             _clock.Setup(c => c.UtcNow).Returns(DateTimeOffset.UtcNow);
             var bandwidth = new Bandwidth(1, TimeSpan.FromSeconds(1));
             var bucket = new TokenBucket(bandwidth, _clock.Object);
-            
+
             Assert.True(bucket.TryConsume());
             Assert.False(bucket.TryConsume());
         }
@@ -30,13 +30,32 @@ namespace RateLimiter.UnitTest
                 .Returns(now)
                 .Returns(now.AddSeconds(1))
                 .Returns(now.AddSeconds(2));
-            
+
             var bandwidth = new Bandwidth(1, TimeSpan.FromSeconds(1));
             var bucket = new TokenBucket(bandwidth, _clock.Object);
-            
+
             Assert.True(bucket.TryConsume());
             Assert.False(bucket.TryConsume());
             Assert.True(bucket.TryConsume());
+        }
+
+        [Theory]
+        [InlineData(1, 0, 1)]
+        [InlineData(1, 0.5, 1)]
+        [InlineData(2, 1000, 1)]
+        public void TimeToNextRefill_ReturnsTimeInSeconds(int durationSeconds, double waitMillis,
+            int expectedTimeToRefill)
+        {
+            var now = DateTimeOffset.UtcNow;
+
+            _clock.SetupSequence(c => c.UtcNow)
+                .Returns(now)
+                .Returns(now.AddMilliseconds(waitMillis));
+            
+            var bandwidth = new Bandwidth(1, TimeSpan.FromSeconds(durationSeconds));
+            var bucket = new TokenBucket(bandwidth, _clock.Object);
+            
+            Assert.Equal(expectedTimeToRefill, bucket.SecondsToNextRefill);
         }
     }
 }

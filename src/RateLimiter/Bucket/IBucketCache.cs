@@ -4,6 +4,6 @@ namespace RateLimiter.Bucket
 {
     public interface IBucketCache
     {
-        TokenBucket GetOrCreate(IPrincipal principal);
+        ITokenBucket GetOrCreate(IPrincipal principal);
     }
 }

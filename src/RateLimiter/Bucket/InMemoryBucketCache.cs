@@ -1,9 +1,10 @@
-﻿using Microsoft.Extensions.Caching.Memory;
+﻿using System;
+using Microsoft.Extensions.Caching.Memory;
 using RateLimiter.Principal;
 
 namespace RateLimiter.Bucket
 {
-    public class InMemoryBucketCache : IBucketCache
+    public class InMemoryBucketCache : IBucketCache, IDisposable
     {
         private readonly Bandwidth _bandwidth;
         private readonly IMemoryCache _cache;
@@ -14,13 +15,18 @@ namespace RateLimiter.Bucket
             _cache = cache;
         }
 
-        public TokenBucket GetOrCreate(IPrincipal principal)
+        public ITokenBucket GetOrCreate(IPrincipal principal)
         {
             return _cache.GetOrCreate(principal, entry =>
             {
                 entry.SlidingExpiration = _bandwidth.Duration;
                 return new TokenBucket(_bandwidth);
             });
+        }
+
+        public void Dispose()
+        {
+            _cache.Dispose();
         }
     }
 }

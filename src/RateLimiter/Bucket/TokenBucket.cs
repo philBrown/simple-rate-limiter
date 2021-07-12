@@ -3,7 +3,7 @@ using Microsoft.Extensions.Internal;
 
 namespace RateLimiter.Bucket
 {
-    public class TokenBucket
+    public class TokenBucket : ITokenBucket
     {
         private readonly Bandwidth _bandwidth;
         private readonly ISystemClock _clock;
@@ -23,6 +23,9 @@ namespace RateLimiter.Bucket
             _availableTokens = bandwidth.Capacity;
             _lastRefill = _clock.UtcNow;
         }
+
+        public int SecondsToNextRefill =>
+            (int) Math.Ceiling(_lastRefill.Add(_bandwidth.Duration).Subtract(_clock.UtcNow).TotalSeconds);
 
         public bool TryConsume(int tokens = 1)
         {

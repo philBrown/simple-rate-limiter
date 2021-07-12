@@ -1,7 +1,10 @@
-﻿namespace RateLimiter.Principal
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+
+namespace RateLimiter.Principal
 {
     public interface IPrincipalProvider
     {
-        IPrincipal GetPrincipal();
+        Task<IPrincipal> GetPrincipal(HttpContext context);
     }
 }
