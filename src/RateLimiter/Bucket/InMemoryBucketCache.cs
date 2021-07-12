@@ -4,6 +4,9 @@ using RateLimiter.Principal;
 
 namespace RateLimiter.Bucket
 {
+    /// <summary>
+    /// Maintains a thread-safe, in-memory cache of buckets
+    /// </summary>
     public class InMemoryBucketCache : IBucketCache, IDisposable
     {
         private readonly Bandwidth _bandwidth;

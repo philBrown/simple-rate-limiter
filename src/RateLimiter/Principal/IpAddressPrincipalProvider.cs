@@ -4,6 +4,9 @@ using Microsoft.Extensions.Logging;
 
 namespace RateLimiter.Principal
 {
+    /// <summary>
+    /// An implementation of the principal provider that extracts the source IP address from HTTP requests
+    /// </summary>
     public class IpAddressPrincipalProvider : IPrincipalProvider
     {
         private readonly ILogger<IpAddressPrincipalProvider> _logger;
