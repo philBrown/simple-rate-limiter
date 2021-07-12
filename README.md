@@ -92,7 +92,7 @@ dotnet run -p examples/RateLimiter.Example/RateLimiter.Example.csproj
 
 ### Simulate requests
 
-Open `http://localhost:5000/WeatherForecast` in your favourite HTTP client (browser, cURL, Postman, etc).
+Open <http://localhost:5000/WeatherForecast> in your favourite HTTP client (browser, cURL, Postman, etc).
 
 The first request will generate some nice, random weather data as JSON.
 
