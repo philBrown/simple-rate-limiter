@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using RateLimiter.Bucket;
 using RateLimiter.Principal;
 
-namespace RateLimiter.Middleware
+namespace RateLimiter
 {
     public class RateLimiterMiddleware
     {

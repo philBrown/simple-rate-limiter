@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Moq;
 using RateLimiter.Bucket;
-using RateLimiter.Middleware;
 using RateLimiter.Principal;
 using Xunit;
 
