@@ -1,5 +1,7 @@
 # Simple Rate Limiter
 
+![dotnet workflow](https://github.com/philBrown/simple-rate-limiter/actions/workflows/dotnet.yml/badge.svg)
+
 The _Simple Rate Limiter_ is loosely based on the [Token Bucket](https://en.wikipedia.org/wiki/Token_bucket) algorithm.
 From Wikipedia...
 
